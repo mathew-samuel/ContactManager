@@ -5,20 +5,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 
 public class Data {
-    String dir = "data";
-    String filename = "contacts.txt";
-
-    Path dataDir = Paths.get(dir);
-    Path dataFile = Paths.get(dir,filename);
+    private static String dir = "data";
+    private static String filename = "contacts.txt";
+    private static Path dataDir = Paths.get(dir);
+    private static Path dataFile = Paths.get(dir,filename);
 
     public static void createDataDirandDataFile(){
-        String dir = "data";
-        String filename = "contacts.txt";
-
-        Path dataDir = Paths.get(dir);
-        Path dataFile = Paths.get(dir,filename);
 
         if (Files.notExists(dataDir)) {
             try {
@@ -41,4 +37,39 @@ public class Data {
             System.out.println("File \""+filename+"\" already exists");
         }
     }
+
+    public static void ClearData(){
+        List<String> ContactList = Arrays.asList();
+            try {
+            Files.write(dataFile,ContactList);
+            System.out.println("Successfully Cleared \""+filename+"\"");
+        }catch (IOException e){
+            System.out.println("Failed to Clear \""+filename+"\"");
+        }
+    }
+
+    public static void OverwriteData(String data){
+        List<String> ContactList = Arrays.asList(data);
+        try {
+            Files.write(dataFile,ContactList);
+            System.out.println("Successfully wrote to \""+filename+"\"");
+        }catch (IOException e){
+            System.out.println("Failed to write to \""+filename+"\"");
+        }
+    }
+
+
+    public static void readData(){
+        try {
+            List<String> contactList = Files.readAllLines(dataFile);
+                for (int i = 0; i < contactList.size(); i++) {
+                    System.out.println((i + 1) + ": " + contactList.get(i));
+                }
+                    System.out.println("Successfully read \""+filename+"\"");
+        }catch (IOException e){
+            System.out.println("Failed to read \""+filename+"\"");
+        }
+
+    }
+
 }
