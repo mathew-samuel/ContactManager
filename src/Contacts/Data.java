@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -58,6 +60,19 @@ public class Data {
         }
     }
 
+    public static void appendData(String data){
+        try {
+            Files.write(
+                    dataFile,
+                    Arrays.asList(data),
+                    StandardOpenOption.APPEND
+            );
+            System.out.println("Successfully appended \""+data+"\" to \""+filename+"\"");
+        }catch (IOException e){
+            e.printStackTrace();
+            System.out.println("Failed to append \""+data+"\" to \""+filename+"\"");
+        }
+    }
 
     public static void readData(){
         try {
