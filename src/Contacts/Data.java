@@ -87,4 +87,56 @@ public class Data {
 
     }
 
+    public static String retrieveData(){
+        String dataList = "";
+        try {
+            List<String> contactList = Files.readAllLines(dataFile);
+                for (int i = 0; i < contactList.size(); i++) {
+                    dataList += contactList.get(i);
+                }
+                System.out.println("Successfully returned \""+filename+"\"");
+                     return dataList;
+        }catch (IOException e){
+            System.out.println("Failed to return \""+filename+"\"");
+            return dataList;
+        }
+    }
+
+    public static void searchData(String Search){
+        try {
+            List<String> lines = Files.readAllLines(dataFile);
+            List<String> newList = new ArrayList<>();
+
+                for (String line : lines){
+                    if (line.contains(Search)){
+                        System.out.println(line);
+                    }
+                }
+            System.out.println("Successfully searched \""+filename+"\" for \""+Search+"\".\n");
+        }catch (IOException e){
+            System.out.println("Failed to search for \""+Search+"\" in \""+filename+"\".\n");
+        }
+
+
+    }
+
+    public static void searchDataForDel(String Del){
+        try {
+            List<String> lines = Files.readAllLines(dataFile);
+            List<String> newList = new ArrayList<>();
+
+            for (String line : lines){
+                if (!line.contains(Del)){
+                    newList.add(line);
+                }
+            }
+            Files.write(dataFile,newList);
+            System.out.println("Successfully searched \""+filename+"\" for \""+Del+"\".\n");
+        }catch (IOException e){
+            System.out.println("Failed to search for \""+Del+"\" in \""+filename+"\".\n");
+        }
+
+
+    }
+
 }
