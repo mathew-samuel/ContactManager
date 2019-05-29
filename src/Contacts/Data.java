@@ -78,7 +78,7 @@ public class Data {
         try {
             List<String> contactList = Files.readAllLines(dataFile);
                 for (int i = 0; i < contactList.size(); i++) {
-                    System.out.println((i + 1) + ": " + contactList.get(i));
+                    System.out.print(makeBeautiful(contactList.get(i)));
                 }
                     System.out.println("Successfully read \""+filename+"\"");
         }catch (IOException e){
@@ -109,7 +109,7 @@ public class Data {
 
                 for (String line : lines){
                     if (line.contains(Search)){
-                        System.out.println(line);
+                        System.out.println(makeBeautiful(line));
                     }
                 }
             System.out.println("Successfully searched \""+filename+"\" for \""+Search+"\".\n");
@@ -137,6 +137,22 @@ public class Data {
         }
 
 
+    }
+
+    public static String makeBeautiful(String dataString){
+        String name = "";
+        String number = "";
+        if (dataString.indexOf("@")+1==dataString.indexOf(" ")){
+           name = dataString.split("@")[0];
+           number = dataString.split(" ")[1];
+           return "Name :"+name+" | Number :"+number+"\n";
+        }else{
+            name = dataString.split("@")[0];
+            dataString = dataString.split("@")[1];
+            name += " "+dataString.split(" ")[0];
+            number = dataString.split(" ")[1];
+            return "Name :"+name+" | Number :"+number+"\n";
+        }
     }
 
 }
