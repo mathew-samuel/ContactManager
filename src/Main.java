@@ -24,9 +24,26 @@ public class Main {
 
     public static String addLastName(){
         Scanner scan = new Scanner(System.in);
-        System.out.println("Please enter the last name of the contact.\nIf no last name just press \"RETURN\" to continue.d");
+        System.out.println("Please enter the last name of the contact.\nIf no last name just press \"RETURN\" to continue.");
         return scan.nextLine().trim().toLowerCase();
     }
+
+    public static String addPhoneNumber() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Please enter their phone number.\nIn this format [xxx-xxx-xxxx]");
+        String phoneNumber = scan.nextLine().trim();
+        if (phoneNumber.length() == 10) {
+            return phoneNumber;
+        } else if (phoneNumber.length() == 12) {
+            phoneNumber = phoneNumber.replace("-", "");
+            return phoneNumber;
+        } else {
+            return addPhoneNumber();
+        }
+    }
+
+
+
 
 
 
